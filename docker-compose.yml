@@ -1,0 +1,11 @@
+version: "3.1"
+services:
+  t2rbot:
+    container_name: t2rbot
+    image: robotomize/t2r-bot:latest
+    restart: always
+    environment:
+      DEBUG: 1
+      TOKEN: "TOKEN"
+      REQUEST_TIMEOUT: 5
+      RELAYS_NUMBER: 30

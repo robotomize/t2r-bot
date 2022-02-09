@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+isort --force-single-line-imports app
+autoflake --recursive --remove-all-unused-imports --remove-unused-variables --in-place app
+black app
+

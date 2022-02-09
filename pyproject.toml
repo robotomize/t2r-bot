@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "t2r-bot"
+version = "0.0.0"
+description = ""
+authors = ["robotomize <robotomize@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyTelegramBotAPI = "^4.4.0"
+argparse = "^1.4.0"
+pyfiglet = "^0.8.post1"
+types-requests = "^2.27.9"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+autoflake = "^1.4"
+black = "^22.1.0"
+mypy = "^0.931"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
