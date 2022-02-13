@@ -215,6 +215,11 @@ Hi, this is a bot giving a list of relays for tor. Below is a list of available 
 @bot.message_handler(commands=["relays"])
 def relays(message):
     try:
+        bot.send_message(chat_id=message.chat.id, text="Trying to get a list of relays")
+    except Exception as send_message_error:
+        logging.error("get relays send reply to user", exc_info=send_message_error)
+
+    try:
         # Fetching relays
         output = fetch_relays(
             timeout=config.timeout, relays_number=config.relays_number
@@ -228,11 +233,6 @@ def relays(message):
         logging.error("get relays fetch relays:", exc_info=common_error)
         bot.reply_to(message, """The list of relays is not available. Try later""")
         return
-
-    try:
-        bot.reply_to(message, "Trying to get a list of relays")
-    except Exception as reply_error:
-        logging.error("get relays send reply to user", exc_info=reply_error)
 
     try:
         # Send text document with list of tor relays
