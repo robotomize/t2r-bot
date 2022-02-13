@@ -6,9 +6,10 @@ import typing
 
 import requests
 import telebot
+from pyfiglet import Figlet
+
 from config import Config
 from errors import FetchedError
-from pyfiglet import Figlet
 
 # URL for fetching relays
 onion_url = (
@@ -135,7 +136,7 @@ def is_socket_open(addr: str = None) -> bool:
 
 # Fetching list of relays from tor website
 def fetch_relays(
-    relays_number: typing.Optional[int] = 30, timeout: typing.Optional[int] = 5
+        relays_number: typing.Optional[int] = 30, timeout: typing.Optional[int] = 5
 ) -> str:
     random.seed(time.time(), 2)
 
@@ -215,6 +216,11 @@ Hi, this is a bot giving a list of relays for tor. Below is a list of available 
 @bot.message_handler(commands=["relays"])
 def relays(message):
     try:
+        bot.send_message(chat_id=message.chat.id, text="Trying to get a list of relays")
+    except Exception as send_message_error:
+        logging.error("get relays send reply to user", exc_info=send_message_error)
+
+    try:
         # Fetching relays
         output = fetch_relays(
             timeout=config.timeout, relays_number=config.relays_number
@@ -228,11 +234,6 @@ def relays(message):
         logging.error("get relays fetch relays:", exc_info=common_error)
         bot.reply_to(message, """The list of relays is not available. Try later""")
         return
-
-    try:
-        bot.reply_to(message, "Trying to get a list of relays")
-    except Exception as reply_error:
-        logging.error("get relays send reply to user", exc_info=reply_error)
 
     try:
         # Send text document with list of tor relays
