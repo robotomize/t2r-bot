@@ -1,15 +1,9 @@
 # t2r-bot
-Telegram bot for fetching tor relays
+Telegram bot for receiving a list of relays for use in the tor browser
 
 ## Usage
 
-Docker
-
-```shell
-sudo docker-compose up
-```
-
-Python3.9
+### Sh
 
 ```shell
 python3 -m venv env
@@ -18,3 +12,9 @@ poetry install --no-dev
 export TOKEN=<YOUR TELEGRAM TOKEN>
 python3 app/main.py
 ```
+
+### Docker compose
+```shell
+sudo docker-compose up
+```
+
